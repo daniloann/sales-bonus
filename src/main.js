@@ -115,7 +115,6 @@ function analyzeSalesData(data, options) {
         // Увеличить общую накопленную прибыль (profit) у продавца  
 
             seller.cost += cost
-            seller.revenue += revenue;
             seller.profit += profit
 
             // Учёт количества проданных товаров
