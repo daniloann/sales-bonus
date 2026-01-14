@@ -52,7 +52,7 @@ function analyzeSalesData(data, options) {
     if (!data.sellers || !Array.isArray(data.sellers) || data.sellers.length === 0){
         throw new Error('Отсутствуют данные о продавцах');
     }
-    if (!data.purchase_records || !Array.isArray(data.purchase_records)) {
+    if (!data.purchase_records || !Array.isArray(data.purchase_records) || data.purchase_records.length === 0) {
         throw new Error('Отсутствуют данные о продажах');
     }
     if (!data.products || !Array.isArray(data.products) || data.products.length === 0) {
@@ -115,6 +115,7 @@ function analyzeSalesData(data, options) {
         // Увеличить общую накопленную прибыль (profit) у продавца  
 
             seller.cost += cost
+            seller.revenue += revenue;
             seller.profit += profit
 
             // Учёт количества проданных товаров
@@ -139,8 +140,7 @@ function analyzeSalesData(data, options) {
         seller.top_products = Object.entries(seller.products_sold)
             .map(([sku, quantity]) => ({
                     sku,
-                    quantity,
-                    name: productIndex[sku]?.name || sku
+                    quantity
                 }))
             .sort((a,b) => b.quantity-a.quantity)
             .slice(0,10);
